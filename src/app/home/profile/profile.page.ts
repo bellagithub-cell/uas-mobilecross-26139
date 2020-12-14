@@ -92,4 +92,8 @@ export class ProfilePage implements OnInit {
     return await popover.present();
   }
 
+  press(){
+    console.log("event");
+  }
+
 }

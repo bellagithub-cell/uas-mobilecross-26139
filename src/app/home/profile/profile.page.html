@@ -27,7 +27,9 @@
   </ion-list>
   <br><br>
   <ion-list *ngFor="let d of Check; let i = index">
-    <ion-item (longPressed)="press()">{{ name }} checked-in at {{ d.dc.locname}} at {{ d.dc.tanggal }}</ion-item>
+    <ion-item (longPressed)="press()" ion-long-press [interval]="400">
+      {{ name }} checked-in at {{ d.dc.locname}} at {{ d.dc.tanggal }}
+    </ion-item>
   </ion-list>
 </ion-content>
 

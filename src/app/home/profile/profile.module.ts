@@ -10,12 +10,15 @@ import { ProfilePage } from './profile.page';
 import { FooterComponent } from '../../component/footer/footer.component';
 import { PopoverComponent } from '../../component/popover/popover.component';
 
+import { LongPressModule } from 'ionic-long-press';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfilePageRoutingModule
+    ProfilePageRoutingModule,
+    LongPressModule,
   ],
   declarations: [ProfilePage, FooterComponent, PopoverComponent]
 })
