@@ -1,0 +1,66 @@
+.button{
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 20px;
+    size: A3;
+  }
+  
+  .image-center {
+    margin:0 auto;
+  }
+  
+  
+  //remove bottom shadow android
+  .header-md::after {
+    display: none;
+  }
+  
+  .item-avatar {
+    margin-top: 20px;
+    width: 100% !important;
+    height : 240% !important;
+    max-width: 150px !important;  //any size
+    max-height: 150px !important;
+  }
+  
+  
+  ion-img {
+    max-width: 50vw;
+    max-height: 50vh;
+    overflow: hidden;
+  }
+  
+  
+  img{
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+  }
+  
+  .profile-user-img{
+    width: 150px;
+    height: 150px;
+    margin-right: 5px;
+  }
+  .profile-user-img:hover{
+    filter: brightness(80%);
+  }
+  
+  .imgDesc{
+    visibility: hidden;
+    opacity: 0;
+    color: black;
+  }
+  .img-wrap:hover .imgDesc{
+    visibility: visible;
+    opacity: 1;
+  }
+  .image-upload>input {
+  display: none;
+  }
+  
+  
+  
+  
+  
+  

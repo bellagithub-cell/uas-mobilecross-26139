@@ -1,0 +1,56 @@
+<!--<ion-header>-->
+<!--  <ion-toolbar >-->
+<!--    <ion-title>Login</ion-title>-->
+<!--  </ion-toolbar>-->
+<!--</ion-header>-->
+
+<ion-content class="ion-padding">
+  <!-- <ion-img src="assets/image/kubi_logo.png"></ion-img> -->
+  <h1>Login</h1>
+  <form class="form" [formGroup]="validationForm" (ngSubmit)="loginUser(validationForm.value)">
+
+    <ion-item>
+      <ion-label position="floating" >Email</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validationMessages.email">
+        <div class="error-message" style="color: red;"
+             *ngIf="validationForm.get('email').hasError(validation.type) && (validationForm.get('email').dirty || validationForm.get('email').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating" >Password</ion-label>
+      <ion-input type="password" formControlName="password" class="form-controll" required></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validationMessages.password">
+        <div class="error-message" style="color: red;"
+             *ngIf="validationForm.get('password').hasError(validation.type) && (validationForm.get('password').dirty || validationForm.get('password').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="p-3 mb-2">
+      <div class="text-center">
+        <ion-button style="align-content: center;" slot="end" type="submit" [disabled]="!validationForm.valid">Masuk
+          <ion-icon name="chevron-forward-outline" ></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+    <br>
+    <ion-text class="error-message" style="color: red;" text-center>{{errorMessage}}</ion-text>
+  </form>
+  <p>
+    <ion-text class="block bold" routerLink="/forgot">Lupa Password</ion-text>
+  </p>
+  <p>
+    Belum memiliki akun? <a (click)="goToRegisterPage()" style="color: red">Daftar disini.</a>
+  </p>
+
+</ion-content>

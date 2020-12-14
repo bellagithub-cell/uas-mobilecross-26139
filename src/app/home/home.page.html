@@ -7,14 +7,46 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <!-- buat curr loc -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="CurrLoc()">
+         <ion-icon name="locate-outline" class="icon-get-location"></ion-icon>    
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- <ion-buttons > -->
+    <ion-button (click)="open()" color="primary" horizontal="start" slot="fixed" style="bottom: 10px; left: 20px;">
+      <ion-icon name="location-outline" class="icon-get-location"></ion-icon> Curr Location    
+    </ion-button>
+  <!-- </ion-buttons> -->
+
+  <div #map id="map"></div>
 </ion-content>
+
+
+<ion-footer>
+  <!-- <ion-label>{{ userId }}</ion-label> -->
+ <ion-toolbar>
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+  
+      <ion-tab-button  [routerLink]="['/','home','friend']">
+        <ion-icon name="people-outline"></ion-icon>
+        <ion-label>Friend</ion-label>
+      </ion-tab-button>
+  
+      <ion-tab-button [routerLink]="['/','home']">
+        <ion-icon name="map-outline"></ion-icon>
+        <ion-label>Maps</ion-label>
+      </ion-tab-button>
+  
+      <!-- <ion-tab-button  [routerLink]="['/','home','profile', userId]"> -->
+        <ion-tab-button (click)="goToProfil()">
+        <ion-icon name="person-outline"></ion-icon>
+        <ion-label>Profile</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-toolbar>
+</ion-footer>
