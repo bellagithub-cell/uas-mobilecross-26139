@@ -104,6 +104,11 @@ export class UserService {
     // });
   }
 
+  deleteCheckIn(idcheck: string){
+    console.log("check masuk ke appservice" + idcheck);
+    this.db.doc(this.dbCheckin + '/' + idcheck).delete();
+  }
+
   async presentToast() {
     const toast = await this.toastController.create({
       message: 'Friend Has Been Deleted',
@@ -113,5 +118,17 @@ export class UserService {
     });
     toast.present();
   }
+
+  async presentDelete() {
+    const toast = await this.toastController.create({
+      message: 'Check In Has Been Deleted',
+      duration: 3000,
+      color: 'success',
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
+  
 
 }

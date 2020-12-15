@@ -51,6 +51,9 @@ export class HomePage {
         this.userEmail = res.email;
         this.userId = res.uid; 
 
+        // update data user ke loc skrng
+        this.UpLoc();
+
         //ambil data semua friend 
         this.userSrv.getAll().snapshotChanges().pipe(
           map(changes =>
@@ -73,13 +76,15 @@ export class HomePage {
               console.log("data smnt: ", this.friends);
             } 
             //ambil data userid
-            // if(this.temp[i].data.id === this.userId){
-            //   this.user = this.temp[i].data;
-            //   console.log("data user: ", this.user.poslat);
-            // }
+            if(this.temp[i].data.id === this.userId){
+              this.user = {
+                lat: this.temp[i].data.poslat,
+                lng: this.temp[i].data.poslng,
+              }
+              console.log("data user: ", this.user.poslat);
+            }
           }
           console.log("data semua : ", this.friends);
-          // this.userFriendsDataFilter = this.userFriendsData;
           
           // load data poslat dan lng ke array
           for(var i = 0; i < this.friends.length; i++){
@@ -101,14 +106,16 @@ export class HomePage {
     }, err => {
       console.log(err);
     });
+    this.friends = [];
   }
 
 
   showMap(pos: any){
     console.log(pos);
     console.log(pos[0].lat);
+    console.log(this.user.lat);
     // buat center doang
-    let location = new google.maps.LatLng(pos[0].lat, pos[0].lng);
+    let location = new google.maps.LatLng(this.user.lat, this.user.lng);
     const options = {
       center: location,
       zoom: 13,
@@ -124,7 +131,7 @@ export class HomePage {
         position: new google.maps.LatLng(pos[i].lat, pos[i].lng),
         map: this.map,
       });
-      console.log("maarker: ", marker);
+      // console.log("maarker: ", marker);
 
       google.maps.event.addListener(marker, 'click', (function(marker, i){
         return function(){
@@ -140,6 +147,28 @@ export class HomePage {
     // });
   }
 
+  UpLoc(){
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition((position: Position) => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        this.poslat = pos.lat;
+        this.poslng = pos.lng;
+        console.log(pos.lat);
+        console.log(pos);
+        // this.marker = new google.maps.Marker({
+        //   position: new google.maps.LatLng(this.poslat, this.poslng),
+        //   map: this.map
+        // });
+        // this.map.setCenter(pos);
+        //update loc to database
+        this.userSrv.updateloc(this.userId, pos);
+      });
+   }
+  }
+
   CurrLoc(){
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition((position: Position) => {
@@ -151,15 +180,16 @@ export class HomePage {
         this.poslng = pos.lng;
         console.log(pos.lat);
         console.log(pos);
-        this.marker = new google.maps.Marker({
-          position: new google.maps.LatLng(this.poslat, this.poslng),
-          map: this.map
-        });
+        // this.marker = new google.maps.Marker({
+        //   position: new google.maps.LatLng(this.poslat, this.poslng),
+        //   map: this.map
+        // });
         this.map.setCenter(pos);
         //update loc to database
       });
     }
   }
+
 
   //Open modal 
   async open(ev) {

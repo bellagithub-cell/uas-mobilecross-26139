@@ -19,6 +19,7 @@ export class CreatePage implements OnInit {
   map: any; 
   temp: any; 
   status: boolean; 
+  userEmail: any; 
   constructor(
     private userSrv: UserService,
     private authSrv: AuthService,
@@ -45,11 +46,12 @@ export class CreatePage implements OnInit {
   }
 
   ionViewWillEnter() {
+    //ambil data user
     this.authSrv.userDetails().subscribe(res => {
       console.log('res', res);
       // console.log('uid', res.uid);
       if(res !== null){
-        // this.userEmail = res.email; 
+        this.userEmail = res.email; 
         this.id = res.uid; 
       } else {
         this.navCtrl.navigateBack('/login');
@@ -67,7 +69,7 @@ export class CreatePage implements OnInit {
 
     for(var i = 0; i < this.temp.length; i++){
       console.log("haia");
-      if(this.temp[i].data.email === form.value.email){
+      if(this.temp[i].data.email === form.value.email && this.temp[i].data.email != this.userEmail){
         console.log("temp: ", this.temp[i].data.email);
         console.log("email: ", form.value.email);
         this.userSrv.addfriend(this.id, this.temp[i].data.id);

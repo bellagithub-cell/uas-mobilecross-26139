@@ -15,6 +15,9 @@
     <!-- <img src="/assets/image/2.jpg"/> -->
     <img [src]="imageUrl"/>
   </ion-avatar>
+
+  <br><br>
+  <ion-item style="padding-left: 20px;">Kesan selama belajar mobile ini seru dan paham semua materi yang diajarkan</ion-item>
   <ion-list class="detailUser">
     <ion-item>
       <ion-label position="floating" color="primary">First Name</ion-label>
@@ -25,12 +28,16 @@
       <ion-input type="text" [readonly]="true" value="{{ email }}"></ion-input>
     </ion-item>
   </ion-list>
-  <br><br>
-  <ion-list *ngFor="let d of Check; let i = index">
-    <ion-item (longPressed)="press()" ion-long-press [interval]="400">
-      {{ name }} checked-in at {{ d.dc.locname}} at {{ d.dc.tanggal }}
-    </ion-item>
-  </ion-list>
+  <br>
+  <ion-row *ngIf="Check">
+    <ion-col style="padding-left: 10px; padding-right: 10px;">
+    <ion-list *ngFor="let d of Check; let i = index" >
+      <ion-item (longPressed)="press(d, i)" ion-long-press [interval]="400">
+        {{ name }} checked-in at {{ d.dc.locname}} at {{ d.dc.tanggal }}
+      </ion-item>
+    </ion-list>
+  </ion-col>
+  </ion-row>
 </ion-content>
 
 <ion-footer>

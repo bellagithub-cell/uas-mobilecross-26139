@@ -1,13 +1,32 @@
-  <div >
-    <ion-item>
-      <ion-label position="floating">Location Name</ion-label>
-      <ion-input type="text" [(ngModel)]="locname" id=locname></ion-input>
-    </ion-item>
-      <div class="p-3 mb-2">
-        <div class="text-center">
-          <ion-button style="align-content: center;" slot="end" type="submit" (click)="CurrLoc()">Check In
-            <ion-icon name="chevron-forward-outline" ></ion-icon>
-          </ion-button>
-        </div>
+<!-- <div >
+  <ion-item>
+    <ion-label position="floating">Location Name</ion-label>
+    <ion-input type="text" [(ngModel)]="locname" id=locname></ion-input>
+  </ion-item>
+    <div class="p-3 mb-2">
+      <div class="text-center">
+        <ion-button style="align-content: center;" slot="end" type="submit" (click)="CurrLoc()">Check In
+          <ion-icon name="chevron-forward-outline" ></ion-icon>
+        </ion-button>
       </div>
     </div>
+</div> -->
+
+
+<ion-popover-view style="height: max-content; width: max-content;" >
+  <ion-content>
+    <div class="list positive">
+      <ion-item>
+        <ion-label position="floating">Location Name</ion-label>
+        <ion-input type="text" [(ngModel)]="locname" id=locname></ion-input>
+      </ion-item>
+        <div class="p-3 mb-2">
+          <div class="text-center">
+            <ion-button style="align-content: center;" slot="end" type="submit" (click)="CurrLoc()">Check In
+              <ion-icon name="chevron-forward-outline" ></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+    </div>
+  </ion-content>
+</ion-popover-view>

@@ -40,4 +40,5 @@ export class PopoverComponent implements OnInit {
     this.router.navigate(['home/profile/editprofile'],navigationExtra);
     this.popoverCtrl.dismiss();
   }
+
 }

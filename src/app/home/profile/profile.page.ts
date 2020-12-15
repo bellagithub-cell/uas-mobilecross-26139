@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PopoverController } from '@ionic/angular';
+import { AlertController, LoadingController, PopoverController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 import { map } from 'rxjs/operators';
 
@@ -25,6 +25,8 @@ export class ProfilePage implements OnInit {
     private userSrv: UserService,
     private router: Router, 
     private popoverController: PopoverController,
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController,
   ) { 
     this.key = this.router.getCurrentNavigation().extras.state.key; 
   }
@@ -70,12 +72,13 @@ export class ProfilePage implements OnInit {
       // untuk ambil data check in user
       this.userSrv.getCheckIn(this.key).snapshotChanges().pipe(
         map(changes => 
-          changes.map(c => ({dc: c.payload.doc.data()}))
+          changes.map(c => ({dc: c.payload.doc.data(), idchek: c.payload.doc.id}))
           )
       ).subscribe(dc => {
         console.log("data checkin : ", dc);
         this.Check = dc;
-        console.log(this.Check[0].dc.locname);
+        // console.log(this.Check[0].dc.locname);
+        // console.log(this.Check[0].idchek);
       });
       // this.imageUrl = this.userSrv.getPhotoprofile(this.key);
       console.log("url",this.imageUrl);
@@ -92,8 +95,50 @@ export class ProfilePage implements OnInit {
     return await popover.present();
   }
 
-  press(){
+  async press(d: any, i: any){
     console.log("event");
+    console.log(i);
+    console.log(d);
+    console.log(d.id);
+    console.log(this.Check[i].idchek);
+    // slidingItem.close();
+    const alert = await this.alertCtrl.create({
+      header: 'Hapus History',
+      message: 'Apakah yakin ingin menghapus? Jika sudah dihapus, tidak bisa dikembalikan lagi.',
+      buttons: [
+        {
+          text: 'Batal',
+          role: 'cancel'
+        },
+        {
+          text: 'Hapus',
+          handler: () => this.deleteCheckIn(this.Check[i].idchek)
+        }
+      ],
+      backdropDismiss: false
+    });
+    await alert.present();
+  }
+
+  deleteCheckIn(str: string){
+    console.log("masuk function ");
+    console.log(str);
+    this.presentLoading().then(() => {
+      this.userSrv.deleteCheckIn(str);
+      this.router.navigateByUrl('/home');
+      this.userSrv.presentDelete();
+    });
+  }
+
+  async presentLoading(){
+    const loading = await this.loadingCtrl.create({
+      message: 'Deleting Check In...',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed');
   }
 
 }
